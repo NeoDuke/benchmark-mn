@@ -4,7 +4,7 @@ source my-functions.sh
 
 docker rmi \
   neoduke/helloworld-micronaut-jvm:1.0.0 \
-  neoduke/helloworld-micronaut-native:1.0.0 \
+  neoduke/helloworld-micronaut-graalvm:1.0.0 \
   neoduke/helloworld-springboot-jvm:1.0.0
 
 
@@ -41,9 +41,9 @@ cd ../helloworld-micronaut-graalvm
 package_jar_build_image \
   "./mvnw clean" \
   "./mvnw package" \
-  "target/helloworld-micronaut-native-0.1.jar" \
+  "target/helloworld-micronaut-graalvm-0.1.jar" \
   "./docker-build.sh" \
-  "neoduke/helloworld-micronaut-native:1.0.0"
+  "neoduke/helloworld-micronaut-graalvm:1.0.0"
 micronaut_graalvm_packaging_time=$package_jar_build_image_packaging_time
 micronaut_graalvm_jar_size=$package_jar_build_image_jar_size
 micronaut_graalvm_building_time=$package_jar_build_image_building_time
@@ -75,7 +75,7 @@ printf "%30s | %14s | %16s | %17s | %17s |\n" "micronaut_jvm" ${micronaut_jvm_pa
 printf "%30s | %14s | %16s | %17s | %17s |\n" "micronaut_graalvm" ${micronaut_graalvm_packaging_time} ${micronaut_graalvm_jar_size} ${micronaut_graalvm_building_time} ${micronaut_graalvm_docker_image_size}
 printf "%30s | %14s | %16s | %17s | %17s |\n" "springboot-jvm" ${springboot_packaging_time} ${springboot_jar_size} ${springboot_building_time} ${springboot_docker_image_size}
 printf "%30s + %14s + %16s + %17s + %17s |\n" ".............................." ".............." "................" "................." "................."
-p
+
 echo
 echo "==> FINISH : $(date)"
 echo

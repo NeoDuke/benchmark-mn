@@ -14,7 +14,7 @@ echo "----------------------"
 docker run -d --rm --name helloworld-micronaut-jvm -p 9080:8080 neoduke/helloworld-micronaut-jvm:1.0.0
 
 wait_for_container_log "helloworld-micronaut-jvm" "Startup completed in"
-micronaut_jvm_startup_time=$(extract_startup_time_from_log "$wait_for_container_log_matched_row" "{print substr(\$10,0,length(\$10)-1)}")
+micronaut_jvm_startup_time=$(extract_startup_time_from_log "$wait_for_container_log_matched_row" "{print substr(\$9,0,length(\$9)-1)}")
 micronaut_jvm_initial_memory_consumption=$(get_container_memory_consumption "helloworld-micronaut-jvm")
 
 run_command "ab -c 10 -n 7500 http://localhost:9080/hello"
@@ -26,21 +26,21 @@ docker stop helloworld-micronaut-jvm
 
 echo
 echo "-------------------------"
-echo "MICRONAUT-NATIVE"
+echo "MICRONAUT-GRAALVM"
 echo "-------------------------"
 
-docker run -d --rm --name helloworld-micronaut-native -p 9081:8080 neoduke/helloworld-micronaut-native:1.0.0
+docker run -d --rm --name helloworld-micronaut-graalvm -p 9081:8080 neoduke/helloworld-micronaut-graalvm:1.0.0
 
-wait_for_container_log "helloworld-micronaut-native" "Startup completed in"
+wait_for_container_log "helloworld-micronaut-graalvm" "Startup completed in"
 micronaut_graalvm_startup_time=$(extract_startup_time_from_log "$wait_for_container_log_matched_row" "{print substr(\$10,0,length(\$10)-1)}")
-micronaut_graalvm_initial_memory_consumption=$(get_container_memory_consumption "helloworld-micronaut-native")
+micronaut_graalvm_initial_memory_consumption=$(get_container_memory_consumption "helloworld-micronaut-graalvm")
 
 run_command "ab -c 10 -n 7500 http://localhost:9081/hello"
 micronaut_graalvm_ab_testing_time=$run_command_exec_time
 
-micronaut_graalvm_final_memory_consumption=$(get_container_memory_consumption "helloworld-micronaut-native")
+micronaut_graalvm_final_memory_consumption=$(get_container_memory_consumption "helloworld-micronaut-graalvm")
 
-docker stop helloworld-micronaut-native
+docker stop helloworld-micronaut-graalvm
 
 echo
 echo "------------------------"
