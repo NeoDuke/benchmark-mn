@@ -36,7 +36,7 @@ echo "------------------------"
 echo "MICRONAUT-GRAALVM"
 echo "------------------------"
 
-cd ../helloworld-micronaut-native
+cd ../helloworld-micronaut-graalvm
 
 package_jar_build_image \
   "./mvnw clean" \

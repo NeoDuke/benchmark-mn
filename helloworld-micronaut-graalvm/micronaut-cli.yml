@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: helloworld.micronaut.graalvm
+---
+testFramework: junit
+sourceLanguage: java
